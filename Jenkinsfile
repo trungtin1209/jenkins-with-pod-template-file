@@ -1,10 +1,6 @@
 pipeline {
 
-	agent {
-        podTemplate(yaml: readTrusted('pod.yaml')){
-            
-        }
-    }
+	agent POD_LABEL
 
 	stages {
 		 stage('Clean workspace') {
@@ -15,23 +11,11 @@ pipeline {
 	}
 }
 
-// pipeline {
-
-//     podTemplate(yaml: readTrusted('pod.yaml')) {
-//         node(POD_LABEL) {
-//             container('busybox') {
-//                 echo POD_CONTAINER // displays 'busybox'
-//                 sh 'hostname'
-//             }
-
-//             stages {
-// 		        stage('Clean workspace') {
-// 			        steps {
-// 				    cleanWs()
-// 			        }
-// 		        }
-// 	        }
-//         }
-//     }
-// }
-
+podTemplate(yaml: readTrusted('pod.yaml')) {
+    node(POD_LABEL) {
+        container('busybox') {
+            echo POD_CONTAINER // displays 'busybox'
+            sh 'hostname'
+        }
+    }
+}
