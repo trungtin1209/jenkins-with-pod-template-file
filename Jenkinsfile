@@ -19,7 +19,7 @@ pipeline {
 podTemplate(yaml: readTrusted('pod.yaml')) {
     node(golang) {
         container('golang') {
-            echo POD_CONTAINER // displays 'busybox'
+            echo golang // displays 'busybox'
             sh 'hostname'
         }
     }
