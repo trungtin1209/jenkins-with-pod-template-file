@@ -1,6 +1,11 @@
 pipeline {
 
-	agent any
+	agent {
+        podTemplate(yaml: readTrusted('pod.yaml')){
+            
+        }
+    }
+
 	stages {
 		 stage('Clean workspace') {
 			steps {
